@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser()==null) signOut();
+                if(firebaseAuth.getCurrentUser()==null){
+                    getSharedPreferences(MySharedPref.SHAREDPREFNAME,MODE_PRIVATE).edit().clear().commit();
+                    signOut();
+                }
             }
         };
 

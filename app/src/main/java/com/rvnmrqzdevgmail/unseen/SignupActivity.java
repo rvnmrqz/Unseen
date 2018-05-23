@@ -86,12 +86,12 @@ public class SignupActivity extends AppCompatActivity {
                                 FirebaseUser user = task.getResult().getUser();
                                 String uid = user.getUid();
 
-
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(txtDisplayname.getText().toString()).build();
                                 user.updateProfile(profileUpdates);
 
                                 Log.d(TAG, "onComplete: UID: "+uid);
+                                Toast.makeText(SignupActivity.this, "Logged: "+(mAuth.getCurrentUser().getUid()!=null), Toast.LENGTH_SHORT).show();
 
                                 //saving info to realtime database
                                 HashMap<String,String> userMap = new HashMap<>();
@@ -105,7 +105,6 @@ public class SignupActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         showLoading(false);
-                                        mAuth.signOut(); //to prevent autologin
                                         if(task.isSuccessful()){
                                             Toast.makeText(SignupActivity.this, "Sign-up successful", Toast.LENGTH_LONG).show();
                                             finish();
