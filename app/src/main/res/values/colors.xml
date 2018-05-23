@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3C3F41</color>
+    <color name="colorPrimaryBackground">#4f5256</color>
+    <color name="colorPrimaryDark">#2B2B2B</color>
+    <color name="colorButton">#737373</color>
+    <color name="colorAccent">@android:color/holo_green_light</color>
+
+    <color name="regularText">#ffffff</color>
+    <color name="hintText">#bababa</color>
+    <color name="highlightedText">@android:color/holo_green_light</color>
+
+
+</resources>

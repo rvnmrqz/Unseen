@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBackground"
+    android:fillViewport="true"
+    tools:context=".SignupActivity">
+
+    <include layout="@layout/app_bar_regular" android:id="@+id/reg_appbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Create a New Account"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/regDisplayname"
+                    android:textColor="@color/regularText"
+                    android:hint="Display Name"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/regEmail"
+                    android:textColor="@color/regularText"
+                    android:backgroundTint="@color/colorButton"
+                    android:hint="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                    android:id="@+id/regPassword"
+                    android:textColor="@color/regularText"
+                    android:hint="Password"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:textAllCaps="false"
+                android:id="@+id/btnSubmit"
+                android:layout_gravity="end"
+                android:background="@android:color/holo_green_light"
+                android:textColor="#212121"
+                android:text="Create Account"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="12dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/dialog_progressbar"
+        android:visibility="invisible"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/dialog_txtInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/dialog_btnCancel"
+            android:layout_gravity="end"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="14dp"
+            android:paddingLeft="14dp"
+            android:textColor="@android:color/black"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/dialog_btnDone"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="14dp"
+            android:paddingLeft="14dp"
+            android:textColor="@android:color/black"
+            android:text="Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

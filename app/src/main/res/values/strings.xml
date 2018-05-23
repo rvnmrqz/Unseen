@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">unseen</string>
+    <string name="register_here"><u>Create Account</u></string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_chats">Chats</string>
+    <string name="title_people">Friends</string>
+    <string name="title_requests">Requests</string>
+
+</resources>

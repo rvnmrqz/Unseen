@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/login_progressbar"
+            android:visibility="invisible"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:padding="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:text="@string/app_name"
+                android:textSize="42sp"
+                android:textStyle="bold"/>
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/txtUsername"
+                    android:hint="Email"
+                    android:backgroundTint="@color/colorButton"
+                    android:textColor="@color/regularText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                    android:id="@+id/txtPassword"
+                    android:hint="Password"
+                    android:textColor="@color/regularText"
+                    android:drawableTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorButton"
+                    android:inputType="textPassword"
+                    android:fontFamily="sans-serif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txtForgotPassword"
+                    android:layout_gravity="start"
+                    android:textSize="14sp"
+                    android:textColor="@color/regularText"
+                    android:text="Forgot Password?"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnSignIn"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Sign-in"
+                    android:textColor="@color/regularText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtSignup"
+            android:text="@string/register_here"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/regularText"
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</ScrollView>
