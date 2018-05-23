@@ -2,6 +2,7 @@ package com.rvnmrqzdevgmail.unseen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 
 public class MyProfileActivity extends AppCompatActivity {
@@ -50,6 +53,7 @@ public class MyProfileActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.myprofile_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("My Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -72,6 +76,12 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editBio();
+            }
+        });
+        btnChangePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatePhoto();
             }
         });
 
@@ -118,6 +128,7 @@ public class MyProfileActivity extends AppCompatActivity {
         editor.putString(MySharedPref.IMGTHUMB,imgthumb);
         editor.commit();
     }
+
 
     private void editBio(){
         LayoutInflater inflater = getLayoutInflater();
@@ -167,6 +178,41 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
+    private void updatePhoto(){
+        /*
+        // start picker to get image for cropping and then use the image in cropping activity
+            CropImage.activity()
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .start(this);
+
+        // start cropping activity for pre-acquired image saved on the device
+            CropImage.activity(imageUri)
+             .start(this);
+
+        // for fragment (DO NOT use `getActivity()`)
+            CropImage.activity()
+            .start(getContext(), this);
+         */
+        CropImage.activity()
+                .setAspectRatio(1,1)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -174,6 +220,7 @@ public class MyProfileActivity extends AppCompatActivity {
         userDBRef.removeEventListener(userValueEvenListener);
     }
 
+    //FOR CHECKING USER
     private boolean isUserlogged()
     {
         return  (mAuth.getCurrentUser().getUid()!=null);
