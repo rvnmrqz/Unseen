@@ -216,7 +216,10 @@ public class LoginActivity extends AppCompatActivity {
         View forgotPassDialog = inflater.inflate(R.layout.dialog_input, null);
 
         final EditText txtEmail = forgotPassDialog.findViewById(R.id.dialog_txtInput);
+        TextView txtTitle = forgotPassDialog.findViewById(R.id.dialog_title);
+        txtTitle.setText("Reset Password");
         txtEmail.setHint("Type your email here");
+        final ProgressBar dialogProgressbar = forgotPassDialog.findViewById(R.id.dialog_progressbar);
         TextView txtDone = forgotPassDialog.findViewById(R.id.dialog_btnDone);
         TextView txtCancel = forgotPassDialog.findViewById(R.id.dialog_btnCancel);
 
@@ -224,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (txtEmail.getText().toString().contains("@")) {
-                    requestPassReset(txtEmail.getText().toString());
+                    requestPassReset(txtEmail.getText().toString(),dialogProgressbar);
                 } else {
                     Toast.makeText(LoginActivity.this, "Email is not valid", Toast.LENGTH_SHORT).show();
                 }
@@ -239,16 +242,15 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         builder = new AlertDialog.Builder(this);
-        builder.setTitle("Reset Password");
         builder.setView(forgotPassDialog);
         // create alert dialog
         alertDialog = builder.create();
         alertDialog.show();
     }
 
-    private void requestPassReset(String email) {
-        alertDialog.setCancelable(false);
-        Toast.makeText(this, "Please Wait", Toast.LENGTH_LONG).show();
+    private void requestPassReset(String email, final ProgressBar progressBar) {
+        progressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(this, "Please Wait", Toast.LENGTH_SHORT).show();
 
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -256,9 +258,10 @@ public class LoginActivity extends AppCompatActivity {
                 alertDialog.setCancelable(true);
                 if (task.isSuccessful()) {
                     alertDialog.dismiss();
-                    new AlertDialog.Builder(LoginActivity.this).setTitle("Password Reset").setMessage("We have sent you a password reset link to your email").show();
+                    new AlertDialog.Builder(LoginActivity.this).setTitle("Password Reset").setMessage("We have sent a password reset link to your email").show();
 
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(LoginActivity.this, getErrorMessage(task.getException().getMessage().toString()), Toast.LENGTH_SHORT).show();
                 }
             }
