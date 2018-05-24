@@ -1,6 +1,7 @@
 package com.rvnmrqzdevgmail.unseen;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText txtEmail, txtDisplayname;
     ShowHidePasswordEditText txtPassword;
     Button btnSignup;
+
+
 
     Dialog dialog;
 
@@ -90,8 +93,6 @@ public class SignupActivity extends AppCompatActivity {
                                         .setDisplayName(txtDisplayname.getText().toString()).build();
                                 user.updateProfile(profileUpdates);
 
-                                Log.d(TAG, "onComplete: UID: "+uid);
-                                Toast.makeText(SignupActivity.this, "Logged: "+(mAuth.getCurrentUser().getUid()!=null), Toast.LENGTH_SHORT).show();
 
                                 //saving info to realtime database
                                 HashMap<String,String> userMap = new HashMap<>();
@@ -106,6 +107,7 @@ public class SignupActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         showLoading(false);
                                         if(task.isSuccessful()){
+                                            mAuth.signOut();
                                             Toast.makeText(SignupActivity.this, "Sign-up successful", Toast.LENGTH_LONG).show();
                                             finish();
                                         }else{

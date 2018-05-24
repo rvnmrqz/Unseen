@@ -115,7 +115,6 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
 
-
         setUserValueEvenListener();
         setDisplay();
     }

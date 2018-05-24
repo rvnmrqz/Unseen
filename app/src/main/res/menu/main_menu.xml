@@ -7,5 +7,5 @@
         android:title="My Profile" />
     <item
         android:id="@+id/menu_signout"
-        android:title="Sign-out" />
+        android:title="Sign out" />
 </menu>

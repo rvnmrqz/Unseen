@@ -10,9 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,10 +26,11 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
 
 
+    private static final String TAG ="MainActivity" ;
     Toolbar toolbar;
-
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener authStateListener;
+    BottomNavigationView navigation;
 
     //FRAGMENTS STACK
     private HashMap<String, Stack<Fragment>> mStacks;
@@ -75,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
-
-        BottomNavigationView navigation =  findViewById(R.id.navigation);
+        navigation =  findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //fragment stacks
@@ -87,29 +90,33 @@ public class MainActivity extends AppCompatActivity {
         mStacks.put(TAB_3, new Stack<Fragment>());
 
         navigation.setSelectedItemId(R.id.nav_chats);
+
+        setSearchView();
+    }
+
+    private void setSearchView(){
+        SearchView searchView = findViewById(R.id.toolbar_search);
+            searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        pushFragments(MainActivity.TAB_1,new SearchListFragment(),true);
+                    }else{
+                        popFragments();
+                    }
+                }
+            });
+
+    }
+
+    public void hideShowBottomNav(boolean show){
+        if(show) navigation.setVisibility(View.VISIBLE);
+        else navigation.setVisibility(View.GONE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
-
-       /* MenuItem searchViewItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) searchViewItem.getActionView();
-        searchView.setQueryHint("Search");
-        searchView.setIconifiedByDefault(false);
-
-        searchViewItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                    searchView.requestFocus();
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return true;
-            }
-        });*/
 
         return true;
     }
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_signout:
-                new AlertDialog.Builder(this).setTitle("Signing-out")
+                new AlertDialog.Builder(this).setTitle("Signing out")
                         .setMessage("Continue?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
@@ -151,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mAuth.removeAuthStateListener(authStateListener);
     }
+
 
     private void signOut(){
         startActivity(new Intent(this, LoginActivity.class));
@@ -191,8 +199,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void pushFragments(String tag, Fragment fragment, boolean shouldAdd){
-        if(shouldAdd) mStacks.get(tag).push(fragment);
+    public void pushFragments(String tab, Fragment fragment, boolean shouldAdd){
+        if(shouldAdd) mStacks.get(tab).push(fragment);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.replace(R.id.container, fragment);
